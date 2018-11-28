@@ -3,11 +3,22 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MessengerApp.Views.Main.MainView">
     <ContentPage.Content>
-        <StackLayout VerticalOptions="Center" HorizontalOptions="Center">
-            <Label Text="Welcome Firebase-Sample. You are login!" VerticalOptions="Center" HorizontalOptions="Center" />
-            <Entry VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" Text="{Binding Message}"/>
-            <Button Text="Save" Command="{Binding SaveTextCommand}" BackgroundColor="#1FBED6" HorizontalOptions="Fill" TextColor="White" />
+
+        <StackLayout  VerticalOptions="Center" HorizontalOptions="Center">
+
+            <ListView x:Name="MessagesList" ItemsSource="{Binding Messages}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <TextCell Text="{Binding Text}" Detail="{Binding Time}" />
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+            <Entry HorizontalOptions="FillAndExpand" Text="{Binding Message}"/>
+            <Button Text="Send" Command="{Binding SaveTextCommand}" BackgroundColor="#1FBED6" HorizontalOptions="Fill" TextColor="White" />
             <Button Text="Logout" Command="{Binding LogoutCommand}" BackgroundColor="#1FBED6" HorizontalOptions="Fill" TextColor="White" />
+
         </StackLayout>
+        
     </ContentPage.Content>
 </ContentPage>

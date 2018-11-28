@@ -1,12 +1,13 @@
-﻿using System;
+﻿using MessengerApp.Models.Message;
+using System;
 
 namespace MessengerApp.Services.FirebaseDB
 {
     public interface IFirebaseDBService
     {
         void Connect();
-        void GetMessage();
-        void SetMessage(String message);
+        void GetMessages();
+        void SetMessage(Message message);
         String GetMessageKey();
     }
 }

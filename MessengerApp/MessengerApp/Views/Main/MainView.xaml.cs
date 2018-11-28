@@ -1,5 +1,6 @@
-﻿using MessengerApp.ViewModels.Main;
-
+﻿using MessengerApp.Models.Message;
+using MessengerApp.ViewModels.Main;
+using System.Collections.ObjectModel;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -9,15 +10,16 @@ namespace MessengerApp.Views.Main
 	public partial class MainView : ContentPage
 	{
         MainViewModel viewModel;
+        
         public MainView ()
 		{
-			InitializeComponent ();
+            
+            InitializeComponent ();
 		}
 
         protected override void OnAppearing()
         {
             viewModel = BindingContext as MainViewModel;
-
             if (viewModel != null) viewModel.OnAppearing(null);
         }
     }

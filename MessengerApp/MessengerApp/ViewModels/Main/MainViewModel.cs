@@ -1,8 +1,11 @@
-﻿using MessengerApp.Services.FirebaseAuth;
+﻿using MessengerApp.Models.Message;
+using MessengerApp.Services.FirebaseAuth;
 using MessengerApp.Services.FirebaseDB;
 using MessengerApp.ViewModels.Base;
 using MessengerApp.ViewModels.Login;
 using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
@@ -16,17 +19,31 @@ namespace MessengerApp.ViewModels.Main
         private IFirebaseAuthService _firebaseAuthService;
         private IFirebaseDBService _firebaseDatabaseService;
         private String _message;
+
+        public ObservableCollection<Message> Messages { get;  } = new ObservableCollection<Message>();
+
+
         public MainViewModel()
         {
             _firebaseAuthService = DependencyService.Get<IFirebaseAuthService>();
             _firebaseDatabaseService = DependencyService.Get<IFirebaseDBService>();
             _firebaseDatabaseService.Connect();
-            _firebaseDatabaseService.GetMessage();
-            MessagingCenter.Subscribe<String, String>(this, _firebaseDatabaseService.GetMessageKey(), (sender, args) =>
+            _firebaseDatabaseService.GetMessages();
+
+            MessagingCenter.Subscribe<String, List<Message>>(this, _firebaseDatabaseService.GetMessageKey(), (sender, args) =>
             {
-                Message = (args);
+                List<Message> messages_list = (args);
+                Messages.Clear();
+                
+                foreach (Message m in messages_list)
+                {
+                    Messages.Add(m);
+                }
+                RaisePropertyChanged();
 
             });
+
+
         }
 
         public ICommand LogoutCommand
@@ -50,8 +67,8 @@ namespace MessengerApp.ViewModels.Main
         }
         private async Task SaveTextCommandExecute()
         {
-            _firebaseDatabaseService.SetMessage(Message);
-
+            _firebaseDatabaseService.SetMessage(new Message(Message));
+            Message = "";
         }
 
         public String Message

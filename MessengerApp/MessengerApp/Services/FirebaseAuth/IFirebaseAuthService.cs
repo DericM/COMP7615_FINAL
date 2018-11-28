@@ -13,5 +13,6 @@ namespace MessengerApp.Services.FirebaseAuth
         Task<bool> SignInWithGoogle(String token);
         Task<bool> Logout();
         String GetUserId();
+        String CurrentUser();
     }
 }

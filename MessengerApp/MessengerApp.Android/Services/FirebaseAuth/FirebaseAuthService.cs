@@ -21,6 +21,14 @@ namespace MessengerApp.Droid.Services.FirebaseAuth
             var signedIn = user != null;
             return signedIn;
         }
+        public string CurrentUser()
+        {
+            if (!IsUserSigned())
+                return "notsignedin";
+            var user = Firebase.Auth.FirebaseAuth.GetInstance(MainActivity.app).CurrentUser;
+            var name = user.Email;
+            return name;
+        }
         public async Task<bool> SignUp(string email, string password)
         {
             try

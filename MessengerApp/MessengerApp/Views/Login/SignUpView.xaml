@@ -19,7 +19,7 @@
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
 
-                    <Label Text="Firebase Sample" FontSize="60" HorizontalOptions="Center" VerticalOptions="Center" Grid.Row="0" TextColor="#1FBED6">
+                    <Label Text="MessengerApp" FontSize="20" HorizontalOptions="Center" VerticalOptions="Center" Grid.Row="0" TextColor="#1FBED6">
                     </Label>
 
 
